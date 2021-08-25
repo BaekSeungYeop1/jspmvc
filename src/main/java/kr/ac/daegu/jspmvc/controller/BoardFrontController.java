@@ -1,6 +1,7 @@
 package kr.ac.daegu.jspmvc.controller;
 
 import kr.ac.daegu.jspmvc.biz.BoardCmd;
+import kr.ac.daegu.jspmvc.biz.BoardInsertCmd;
 import kr.ac.daegu.jspmvc.biz.BoardListCmd;
 
 import javax.servlet.RequestDispatcher;
@@ -40,6 +41,15 @@ public class BoardFrontController extends HttpServlet {
             cmd.execute(request, response);
             viewPage = "view/boardList.jsp";
         }
+
+        // 글 추가하기()
+        if (cmdURI.equals("/boardInsert.bbs")){
+            // enduser 작성한 글을 db에 insert 시키는 비즈니스 로직 작성
+            cmd = new BoardInsertCmd();
+            cmd.execute(request,response);
+            viewPage="boardList.bbs";
+        }
+
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
         dispatcher.forward(request, response);
