@@ -1,9 +1,6 @@
 package kr.ac.daegu.jspmvc.controller;
 
-import kr.ac.daegu.jspmvc.biz.BoardCmd;
-import kr.ac.daegu.jspmvc.biz.BoardInsertCmd;
-import kr.ac.daegu.jspmvc.biz.BoardListCmd;
-import kr.ac.daegu.jspmvc.biz.BoardReadCmd;
+import kr.ac.daegu.jspmvc.biz.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,8 +55,32 @@ public class BoardFrontController extends HttpServlet {
             viewPage="view/boardRead.jsp";
         }
 
+        /*
+         * 수정하기 관련
+         * */
+        // 글의 패스워드 체크
+        if(cmdURI.equals("/boardPwdCheckToUpdate.bbs")){
+            cmd = new BoardPwdCheckCmd();
+            boolean isPasswordCorrect = cmd.execute(request, response);
+            if(isPasswordCorrect){
+                viewPage = "view/boardReadToUpdate.jsp";
+            } else {
+                viewPage = "view/boardPwdCheckFalse.jsp";
+            }
+        }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+        // 글 수정 처리
+        if(cmdURI.equals("/boardUpdate.bbs")){
+            // 글 수정처리 bizlogic
+            cmd = new BoardUpdateCmd();
+            cmd.execute(request, response);
+            // 바로 글 목록 화면으로
+            viewPage = "boardList.bbs";
+        }
+
+
+
+       RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
         dispatcher.forward(request, response);
 
     }

@@ -89,7 +89,8 @@ public class BoardDAO {
     public void insertBoardContent(int newId,
                                    String subject,
                                    String author,
-                                   String content) throws ClassNotFoundException, SQLException {
+                                   String content,
+                                   String password) throws ClassNotFoundException, SQLException {
         // Connection, PreparedStatement, ResultSet은 interface 객체이다.
         Class.forName("org.mariadb.jdbc.Driver");
         Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PW);
@@ -97,11 +98,12 @@ public class BoardDAO {
 
         // 쿼리 준비 & db 쿼리
         // insert into board values (1, 'testAuthor', 'testSubject', 'testContent', CURDATE(), CURTIME(), 0, 0)
-        pstmt = conn.prepareStatement("insert into Board values (?, ?, ?, ?, CURDATE(), CURTIME(), 0, 0)");
+        pstmt = conn.prepareStatement("insert into Board values (?, ?, ?, ?, CURDATE(), CURTIME(), 0, 0, ?)");
         pstmt.setInt(1, newId);
         pstmt.setString(2, subject);
         pstmt.setString(3, author);
         pstmt.setString(4, content);
+        pstmt.setString(5, password);
         pstmt.executeUpdate();
 
     }
@@ -126,6 +128,7 @@ public class BoardDAO {
             Time writeTime = rs.getTime("writeTime");
             int readCount = rs.getInt("readCount");
             int commentCount = rs.getInt("commentCount");
+            String password = rs.getString("password");
 
             data.setId(id);
             data.setAuthor(author);
@@ -135,6 +138,7 @@ public class BoardDAO {
             data.setWriteTime(writeTime);
             data.setReadCount(readCount);
             data.setCommentCount(commentCount);
+            data.setPassword(password);
 
         }
         return data;
@@ -154,4 +158,18 @@ public class BoardDAO {
     }
 
 
+    public void updateBoardContent(int id,
+                                   String subject,
+                                   String content) throws ClassNotFoundException, SQLException {
+        // db에 접속해서
+        Class.forName("org.mariadb.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PW);
+        PreparedStatement pstmt = null;
+        // 해당 아이디의 row에서 subject와 content를 업데이트
+        pstmt = conn.prepareStatement("update Board set subject=?, content=? where id = ?");
+        pstmt.setString(1, subject);
+        pstmt.setString(2, content);
+        pstmt.setInt(3, id);
+        pstmt.executeUpdate();
+    }
 }
