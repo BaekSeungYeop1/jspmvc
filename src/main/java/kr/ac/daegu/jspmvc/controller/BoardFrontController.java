@@ -3,6 +3,7 @@ package kr.ac.daegu.jspmvc.controller;
 import kr.ac.daegu.jspmvc.biz.BoardCmd;
 import kr.ac.daegu.jspmvc.biz.BoardInsertCmd;
 import kr.ac.daegu.jspmvc.biz.BoardListCmd;
+import kr.ac.daegu.jspmvc.biz.BoardReadCmd;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,6 +49,13 @@ public class BoardFrontController extends HttpServlet {
             cmd = new BoardInsertCmd();
             cmd.execute(request,response);
             viewPage="boardList.bbs";
+        }
+
+        // 글읽기
+        if (cmdURI.equals("/boardRead.bbs")){
+            cmd = new BoardReadCmd();
+            cmd.execute(request,response);
+            viewPage="view/boardRead.jsp";
         }
 
 
