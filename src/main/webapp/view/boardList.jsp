@@ -16,6 +16,16 @@
 <!-- BoardListCmd.java에서 가져온 데이터를 어떻게 jsp파일에서 html 형태로 보여줄 것인가? -->
 <table>
     <tr>
+        <td colspan="7">
+            <label for="pagePerRow">페이지당 보여줄 글의 갯수 :</label>
+            <form action="boardList.bbs?page=1" method="post">
+                <input type="text" name="pagePerRow" id="pagePerRow" value="${pagePerRow}"/>
+                <input type="submit" value="확인"/>
+            </form>
+        </td>
+    </tr>
+    <tr>
+    <tr>
         <td>글번호</td>
         <td>작성자</td>
         <td>제목</td>
@@ -43,7 +53,7 @@
     <tr>
         <td colspan="7">
             <c:forEach var="i" begin="1" end="${totalPageCount}">
-                <a href="boardList.bbs?page=${i}">[<c:out value="${i}"/>]<a/>
+                <a href="boardList.bbs?page=${i}&pagePerRow=${pagePerRow}">[<c:out value="${i}"/>]<a/>
             </c:forEach>
         </td>
     </tr>
