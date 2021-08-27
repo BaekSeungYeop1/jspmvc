@@ -78,6 +78,10 @@ public class BoardFrontController extends HttpServlet {
             viewPage = "boardList.bbs";
         }
 
+        /*
+         * 삭제하기 관련
+         * */
+
 
 
        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
