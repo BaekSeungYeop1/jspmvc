@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+// DAO : DatabaseAccessObject : 이 객체가 db에 접속해서 쿼리를 날리고 결과를 리턴해주는 책임
 public class BoardDAO {
     private static final String DB_URL  = "jdbc:mariadb://localhost:3306/dgd";
     private static final String DB_USER = "root";
@@ -170,6 +171,17 @@ public class BoardDAO {
         pstmt.setString(1, subject);
         pstmt.setString(2, content);
         pstmt.setInt(3, id);
+        pstmt.executeUpdate();
+    }
+
+    public void deleteBoardData(int id) throws ClassNotFoundException, SQLException {
+        // db에 접속해서
+        Class.forName("org.mariadb.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PW);
+        PreparedStatement pstmt = null;
+        // 해당 아이디의 row를 삭제
+        pstmt = conn.prepareStatement("delete from board where id = ?");
+        pstmt.setInt(1, id);
         pstmt.executeUpdate();
     }
 }
