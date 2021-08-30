@@ -53,8 +53,19 @@
             <!-- ORDER : 패스워드 확인 하고 boardPasswordToDelete.jsp -->
         </td>
     </tr>
+    <tr>
+        <td><label for="commentAuthor">작성자</label></td>
+        <td><label for="commentContent">댓글 내용</label></td>
+    </tr>
+    <form action="commentInsert.bbs" method="post">
+        <tr>
+            <input type="hidden" name="boardId" value="${boardData.id}"/>
+            <td><input type="text" name="commentAuthor" id="commentAuthor"/></td>
+            <td><input type="text" name="commentContent" id="commentContent"/></td>
+            <td><input type="submit" value="확인"></td>
+        </tr>
+    </form>
 </table>
 <!-- [글 목록 보기][수정하기][삭제하기] 글 목록보기 클릭하면 boardList.bbs로 foward -->
-글 읽기 화면입니다.
 </body>
 </html>
