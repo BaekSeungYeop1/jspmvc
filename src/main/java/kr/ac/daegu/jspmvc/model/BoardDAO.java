@@ -40,7 +40,7 @@ public class BoardDAO {
         pstmt = conn.prepareStatement("select * \n" +
                 "from \n" +
                 "(select board.*, ROW_NUMBER() OVER() as rowNum from board order by replyRootId desc, ordernum asc) tb\n" +
-                "where tb.rowNum between "+startRowNum+" and "+endRowNum);
+                "where tb.replyRootId between "+startRowNum+" and "+endRowNum);
         rs = pstmt.executeQuery();
 
         // 글 목록을 반환할 ArrayList
