@@ -108,7 +108,14 @@ public class BoardFrontController extends HttpServlet {
             viewPage = "boardRead.bbs?id="+boardId;
         }
 
-
+        /*
+         * 답글 관련
+         * */
+        if(cmdURI.equals("/boardReplyInsert.bbs")) {
+            cmd = new BoardReplyInsertCmd();
+            cmd.execute(request, response);
+            viewPage = "boardList.bbs";
+        }
 
        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
         dispatcher.forward(request, response);
