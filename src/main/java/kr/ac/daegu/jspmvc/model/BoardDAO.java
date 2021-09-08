@@ -145,6 +145,9 @@ public class BoardDAO {
             int readCount = rs.getInt("readCount");
             int commentCount = rs.getInt("commentCount");
             String password = rs.getString("password");
+            int refId = rs.getInt("refId");
+            int depth = rs.getInt("depth");
+            int orderNum = rs.getInt("orderNum");
 
             data.setId(id);
             data.setAuthor(author);
@@ -155,6 +158,9 @@ public class BoardDAO {
             data.setReadCount(readCount);
             data.setCommentCount(commentCount);
             data.setPassword(password);
+            data.setRefId(refId);
+            data.setDepth(depth);
+            data.setOrderNum(orderNum);
 
         }
         return data;
