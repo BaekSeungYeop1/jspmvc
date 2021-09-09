@@ -9,6 +9,10 @@ CREATE TABLE Board (
     readCount    INT           NOT NULL COMMENT '조회수', -- 조회수
     commentCount INT           NOT NULL COMMENT '댓글수', -- 댓글수
     password     VARCHAR(300)  NOT NULL default '0000' COMMENT '수정삭제비밀번호' -- 수정삭제비밀번호
+
+    replyRootId  INT           not null default 0,      -- 답글이 달리는 root원글
+    depth        int           not null default 0,      -- 답글 깊이
+    orderNum     int           not null default 0       -- root원글, 답글깊이에 따른 답글 순서
 )
 COMMENT '게시글';
 
@@ -33,4 +37,10 @@ ALTER TABLE Comment
              id -- 게시글id
             );
 
-insert into board values (1, 'testAuthor', 'testSubject', 'testContent', CURDATE(), CURTIME(), 0, 0)
+create table Member(
+                       mId int not null primary key,
+                       id varchar(300) not null,
+                       password varchar(1024) not null
+)
+
+
