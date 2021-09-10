@@ -16,7 +16,8 @@
             <td><input type="text" name="password" id="password"/></td>
         </tr>
         <tr>
-            <input type="submit" value="로긴"/>
+            <input type="submit" value="로그인"/>
+            <a href="signUp.jsp">회원가입</a>
         </tr>
     </table>
 </form>
