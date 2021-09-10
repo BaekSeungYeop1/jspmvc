@@ -41,6 +41,7 @@ create table Member(
                        mId int not null primary key,
                        id varchar(300) not null,
                        password varchar(1024) not null
+                       salt varchar(36) not null
 )
 
 
