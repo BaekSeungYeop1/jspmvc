@@ -37,10 +37,14 @@ public class BoardFrontController extends HttpServlet {
          * 로그인 관련
          * */
         if(cmdURI.equals("/signUp.bbs")){
-//            cmd = new LoginSignUpCmd();
-//            cmd.execute(request, response);
-//            response.sendRedirect("login.bbs");
-            viewPage = "boardList.bbs";
+            cmd = new LoginSignUpCmd();
+            boolean isSignUpSuccess = cmd.execute(request, response);
+            if(isSignUpSuccess){
+                response.sendRedirect("boardList.bbs");
+            } else {
+                response.sendRedirect("view/signUpFailed.jsp");
+            }
+            return;
         }
 
         if(cmdURI.equals("/login.bbs")){
